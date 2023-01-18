@@ -1,0 +1,197 @@
+openapi: '3.0.2'
+info:
+  title: To Do App API
+  version: '1.0'
+  description: |
+    This specification serves as the baseline for all tools developed in the
+    context of the To Do App.
+
+servers:
+  - url: http://localhost:3001
+    description: Laravel backend implementation
+
+components:
+  schemas:
+    ToDoComponent:
+      type: object
+      required:
+        - "title"
+        - "priority"
+        - "description"
+        - "image_url"
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+        priority:
+          type: string
+        description:
+          type: string
+        image_url:
+          type: string  
+
+  responses:
+    BadRequest:
+      description: Request was not well-formed, see error details
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error-message:
+                type: string
+                description: Error message detailing the problem with the request
+
+    NotFound:
+      description: Resource not found
+
+    NoResults:
+      description: List empty; no results
+
+    ServerError:
+      description: Server error; no results, try again later
+
+paths:
+  /todolist:
+    get:
+      tags:
+        - ToDoComponent
+      description: Retrieves a list of To Do Actions
+      summary: Retrieves a list of To Do Actions
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ToDoComponent"
+        '204':
+          $ref: "#/components/responses/NoResults"
+
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+        '5XX':
+          $ref: '#/components/responses/ServerError'
+
+    post:
+      tags:
+        - ToDoComponet
+      summary: Create a new To Do Action
+      description: Creates a new To Do Action given the requested information
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ToDoComponent"
+      responses:
+        '201':
+          description: To Do Action successfully created
+          content:
+            application/json:
+              schema:
+                type: integer
+                description: ID of newly created To Do Action
+          headers:
+            Location:
+              schema:
+                type: string
+              description: The URL of the newly-created To Do Action
+
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+        '409':
+          description: To Do Action with the same name already exists
+          headers:
+            Location:
+              schema:
+                type: string
+              description: The URL of the pre-existing To Do Action
+
+        '5XX':
+          $ref: '#/components/responses/ServerError'
+
+  /todolist/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the To Do Action
+        schema:
+          type: integer
+
+    get:
+      tags:
+        - ToDoComponent
+      summary: Retrieve a selected To Do Action
+      description: Retrieves the To Do Action with the given ID
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ToDoComponent"
+
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+        '404':
+          $ref:  "#/components/responses/NotFound"
+
+        '5XX':
+          $ref: '#/components/responses/ServerError'
+
+    put:
+      tags:
+        - ToDoComponent
+      summary: Update a To Do Action
+      description: Updates the To Do Action with the given id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ToDoComponent"
+      responses:
+        '200':
+          description: "To Do Action updated, returns the new state"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ToDoComponent"
+
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+        '404':
+          $ref: "#/components/responses/NotFound"
+
+        '5XX':
+          $ref: '#/components/responses/ServerError'
+
+    delete:
+      tags:
+        - ToDoComponent
+      summary: Delete a To Do Action
+      description: Deletes the To Do Action with the given id
+      responses:
+        '204':
+          description: To Do Action deleted successfully
+
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+        '404':
+          $ref: "#/components/responses/NotFound"
+
+        '5XX':
+          $ref: '#/components/responses/ServerError'
+
+  
