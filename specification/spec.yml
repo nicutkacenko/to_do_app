@@ -54,7 +54,7 @@ components:
       description: Server error; no results, try again later
 
 paths:
-  /todolist:
+  /todocomponents:
     get:
       tags:
         - ToDoComponent
@@ -117,7 +117,7 @@ paths:
         '5XX':
           $ref: '#/components/responses/ServerError'
 
-  /todolist/{id}:
+  /todocomponents/{id}:
     parameters:
       - name: id
         in: path

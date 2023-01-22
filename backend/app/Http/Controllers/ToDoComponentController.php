@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\ToDoComponent;
+use App\Models\ToDoComponent;
 use Illuminate\Http\Request;
 
 class ToDoComponentController extends Controller
