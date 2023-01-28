@@ -4,19 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\ToDoComponent;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Http\Resources\ToDoComponentResource;
 
 class ToDoComponentController extends Controller
 {
     /**
      * Display a listing of the ToDoComponents.
+     * @return JsonResponse
      *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $todocomponents = ToDoComponent::all();
-
-        return view('todocomponents.index', compact('todocomponents'));
+        return ToDoComponentResource::collection($todocomponents)->response();
     }
 
     /**
@@ -52,12 +53,13 @@ class ToDoComponentController extends Controller
     /**
      * Display the specified ToDoComponent.
      *
-     * @param  \App\Model\ToDoComponent  $todocomponent
-     * @return \Illuminate\Http\Response
+     * @param  int $id
+     * @return JsonResponse
      */
-    public function show(ToDoComponent $todocomponent)
+    public function show($id)
     {
-        return view('todocomponents.show', compact('todocomponent'));
+        $todocomponent = ToDoComponent::find($id);
+        return new ToDoComponentResource($todocomponent);
     }
 
     /**

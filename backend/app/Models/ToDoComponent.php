@@ -6,40 +6,28 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ToDoComponent extends Model{
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'todocomponent';
+    protected $table = 'todocomponents';
 
     /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'id';
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
+     * Set the autotimestamps to false
+     * 
+     * @var bool $timestamps
      */
     public $timestamps = false;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * The fillable fields.
+     * 
+     * @var  array $fillable
      */
     protected $fillable = [
-        'title', 'description', 'priority', 'image_url'
+        'title', 'description', 'priority', 'image_url',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [];
+    public static function boot(){
+
+        /* call parent boot method */
+        parent::boot();
+
+    }
 }
