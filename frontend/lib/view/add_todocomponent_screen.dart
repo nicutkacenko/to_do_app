@@ -122,20 +122,11 @@ class _AddToDoComponentScreenState extends State<AddToDoComponentScreen> {
                 ),
                 color: Color.fromRGBO(217, 217, 217, 1),
               ),
-              child: Center(
-                child: Text(
-                  'tralala',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      color: Color.fromRGBO(0, 0, 0, 1),
-                      fontFamily: 'Inter',
-                      fontSize: 32,
-                      fontWeight: FontWeight.normal,
-                      height: 1),
-                ),
+              child: const Center(
+                child: Icon(Icons.image, size: 60),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 70,
             ),
             TextFormField(
@@ -158,7 +149,7 @@ class _AddToDoComponentScreenState extends State<AddToDoComponentScreen> {
                       borderRadius: BorderRadius.circular(50),
                       borderSide: const BorderSide(color: Colors.black38))),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextFormField(
@@ -181,7 +172,7 @@ class _AddToDoComponentScreenState extends State<AddToDoComponentScreen> {
                       borderRadius: BorderRadius.circular(50),
                       borderSide: const BorderSide(color: Colors.black38))),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextFormField(
@@ -204,13 +195,13 @@ class _AddToDoComponentScreenState extends State<AddToDoComponentScreen> {
                       borderRadius: BorderRadius.circular(50),
                       borderSide: const BorderSide(color: Colors.black38))),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   'Priority:',
                   style: TextStyle(
                       color: Color.fromRGBO(129, 129, 141, 1),
@@ -219,7 +210,7 @@ class _AddToDoComponentScreenState extends State<AddToDoComponentScreen> {
                       fontWeight: FontWeight.normal,
                       height: 1),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 DropdownButton<String>(

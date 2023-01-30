@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/controller/todocomponent_controller.dart';
 import 'package:frontend/view/add_todocomponent_screen.dart';
+import 'package:frontend/view/todocomponent_screen.dart';
 
-import '../controller/todocomponent_controller.dart';
 import '../model/todocomponent.dart';
 
 class ToDoListScreen extends StatefulWidget {
@@ -22,7 +22,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
   }
 
   getToDo() async {
-    futureToDoComponent = ToDoComponentController().getToDoComponents();
+    futureToDoComponent = ToDoComponentController.getToDoComponents();
   }
 
   @override
@@ -77,15 +77,21 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                   itemBuilder: (context, index) {
                     ToDoComponent todocomponent = todocomponents[index];
                     return GestureDetector(
-                      onTap: () {},
-                      /*=> Navigator.of(context).push(MaterialPageRoute(builder: (context) =>MovieScreen(id: movie.id.toString()))),*/
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ToDoComponentScreen(
+                                id: todocomponent.id!,
+                                title: todocomponent.title,
+                                priority: todocomponent.priority,
+                                description: todocomponent.description,
+                                imageUrl: todocomponent.imageUrl,
+                              ))),
                       child: Column(
                         children: [
-                          Container(
+                          const SizedBox(
                             height: 10,
                           ),
                           Container(
-                            width: 100,
+                            width: 500,
                             height: 100,
                             decoration: const BoxDecoration(
                               borderRadius: BorderRadius.only(
@@ -107,9 +113,9 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                     Container(
                                       height: 5,
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: 350,
-                                      height: 35,
+                                      height: 30,
                                       child: Text(
                                         todocomponent.title,
                                         textAlign: TextAlign.left,
@@ -117,12 +123,12 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                             color: Color.fromRGBO(0, 0, 0, 1),
                                             fontFamily: 'Inter',
                                             fontSize: 17,
-                                            fontWeight: FontWeight.w300,
+                                            fontWeight: FontWeight.w600,
                                             height: 1),
                                       ),
                                     ),
-                                    Container(
-                                      width: 140,
+                                    SizedBox(
+                                      width: 350,
                                       height: 25,
                                       child: Text(
                                         todocomponent.description,
@@ -135,7 +141,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                             height: 1),
                                       ),
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: 140,
                                       height: 25,
                                       child: Text(
@@ -145,7 +151,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                             color: Color.fromRGBO(0, 0, 0, 1),
                                             fontFamily: 'Inter',
                                             fontSize: 15,
-                                            fontWeight: FontWeight.normal,
+                                            fontWeight: FontWeight.w500,
                                             height: 1),
                                       ),
                                     ),

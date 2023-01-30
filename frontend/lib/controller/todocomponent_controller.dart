@@ -5,9 +5,8 @@ import 'package:http/http.dart';
 import '../model/todocomponent.dart';
 
 class ToDoComponentController {
-  Future<List<ToDoComponent>> getToDoComponents() async {
-    final res = await get(Uri.parse('http://127.0.0.1:8000/todocomponents'));
-    print(res.statusCode);
+  static Future<List<ToDoComponent>> getToDoComponents() async {
+    var res = await get(Uri.parse('http://127.0.0.1:8000/todocomponents'));
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
       List<ToDoComponent> todocomponents =
@@ -40,13 +39,14 @@ class ToDoComponentController {
     if (res.statusCode == 200) {
       return ToDoComponent.fromSnap(jsonDecode(res.body));
     } else {
-      throw "Unable to add movie.";
+      throw "Unable to add To Do Component.";
     }
   }
 
-  Future<ToDoComponent> updateToDoComponent(ToDoComponent todocomponent) async {
+  Future<ToDoComponent> updateToDoComponent(
+      String id, ToDoComponent todocomponent) async {
     final res = await put(
-      Uri.parse('http://localhost:8000/todocomponents/${todocomponent.id}'),
+      Uri.parse('http://localhost:8000/todocomponents/$id'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'accept': 'application/json',
