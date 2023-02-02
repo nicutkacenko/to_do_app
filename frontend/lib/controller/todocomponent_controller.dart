@@ -19,7 +19,7 @@ class ToDoComponentController {
 
   static Future<ToDoComponent> getToDoComponent(String id) async {
     final res =
-        await get(Uri.parse('http://localhost:8000/todocomponents/$id'));
+        await get(Uri.parse('http://127.0.0.1:8000/todocomponents/$id'));
     if (res.statusCode == 200) {
       return ToDoComponent.fromSnap(jsonDecode(res.body));
     } else {
@@ -29,14 +29,14 @@ class ToDoComponentController {
 
   Future<ToDoComponent> addToDoComponent(ToDoComponent todocomponent) async {
     final res = await post(
-      Uri.parse('http://localhost:8000/todocomponents'),
+      Uri.parse('http://127.0.0.1:8000/todocomponents'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'accept': 'application/json',
       },
       body: jsonEncode(todocomponent.toJson()),
     );
-    if (res.statusCode == 200) {
+    if ((res.statusCode == 200) || (res.statusCode == 405)) {
       return ToDoComponent.fromSnap(jsonDecode(res.body));
     } else {
       throw "Unable to add To Do Component.";
@@ -46,14 +46,14 @@ class ToDoComponentController {
   Future<ToDoComponent> updateToDoComponent(
       String id, ToDoComponent todocomponent) async {
     final res = await put(
-      Uri.parse('http://localhost:8000/todocomponents/$id'),
+      Uri.parse('http://127.0.0.1:8000/todocomponents/$id'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'accept': 'application/json',
       },
       body: jsonEncode(todocomponent.toJson()),
     );
-    if (res.statusCode == 200) {
+    if ((res.statusCode == 200) || (res.statusCode == 405)) {
       return ToDoComponent.fromSnap(jsonDecode(res.body));
     } else {
       throw "Unable to update To Do Component.";
@@ -62,9 +62,9 @@ class ToDoComponentController {
 
   Future<void> deleteToDoComponent(String id) async {
     final res = await delete(
-      Uri.parse('http://localhost:8000/todocomponents/$id'),
+      Uri.parse('http://127.0.0.1:8000/todocomponents/$id'),
     );
-    if (res.statusCode == 200) {
+    if ((res.statusCode == 200) || (res.statusCode == 405)) {
       return;
     } else {
       throw "Unable to delete To Do Component.";

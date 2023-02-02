@@ -21,16 +21,6 @@ class ToDoComponentController extends Controller
     }
 
     /**
-     * Show the form for creating a new ToDoComponent.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('todocomponents.create');
-    }
-
-    /**
      * Store a newly created ToDoComponent in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -60,17 +50,6 @@ class ToDoComponentController extends Controller
     {
         $todocomponent = ToDoComponent::find($id);
         return new ToDoComponentResource($todocomponent);
-    }
-
-    /**
-     * Show the form for editing the specified ToDoComponent.
-     *
-     * @param  \App\Model\ToDoComponent  $todocomponent
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ToDoComponent $todocomponent)
-    {
-        return view('todocomponents.edit', compact('todocomponent'));
     }
 
     /**
